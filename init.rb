@@ -2,7 +2,6 @@ require 'redmine'
 
 # Patches to the Redmine core.
 require 'dispatcher'
-require 'projectstreeview_projects_helper_patch'
 
 Redmine::Plugin.register :projects_tree_view do
   name 'Projects Tree View plugin'
@@ -18,5 +17,8 @@ class ProjectsTreeViewListener < Redmine::Hook::ViewListener
     javascript_include_tag('projects_tree_view', :plugin => :projects_tree_view) +
     stylesheet_link_tag('projects_tree_view', :plugin => :projects_tree_view)
   end
-  
+
 end
+
+require File.dirname(__FILE__) + '/lib/projectstreeview_projects_helper_patch'
+ProjectsHelper.send(:include, ProjectstreeviewProjectsHelperPatch)
