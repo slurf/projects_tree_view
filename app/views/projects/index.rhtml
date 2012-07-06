@@ -9,11 +9,10 @@
     <% end %>
     <%= link_to(l(:label_issue_view_all), { :controller => 'issues' }) + ' |' if User.current.allowed_to?(:view_issues, nil, :global => true) %>
     <%= link_to(l(:label_overall_spent_time), { :controller => 'time_entries' }) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %>
-    <%= link_to l(:label_overall_activity), { :controller => 'activities', :action => 'index' }%>
+    <%= link_to l(:label_overall_activity), { :controller => 'activities', :action => 'index' }%>	
 </div>
 
 <h2><%=l(:label_project_plural)%></h2>
-
 <table class="list">
 	<thead>
 		<tr>
