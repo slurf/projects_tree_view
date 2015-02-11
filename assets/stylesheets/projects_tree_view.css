@@ -5,7 +5,12 @@ tr.child  td.name { white-space: nowrap;  width: 300px; }
 tr.parent span.expander {background-image: url(../images/bullet_toggle_plus.png); padding-left: 8px; margin-left: 0; cursor: pointer;}
 span.empty { text-align:right; width: 100%; cursor: pointer;}
 tr.parent.open span.expander {background-image: url(../images/bullet_toggle_minus.png); cursor: pointer;}
-tr.parent.open {background-color:#ffffbb;}
+tr.parent.open {background-color:#d6d7d8;}
 tr.hide {
 		display:none;
 	    }
+table.list th { text-align:left;}
+table.list td { text-align:left;}
+
+span.all.expander {background-image: url(../images/bullet_toggle_plus.png); padding-left: 8px; margin-left: 0; cursor: pointer;}
+span.all.expander.open {background-image: url(../images/bullet_toggle_minus.png); cursor: pointer;}

@@ -1,0 +1,26 @@
+<h2><%=l(:label_project_plural)%></h2>
+<%= stylesheet_link_tag 'application', :media => 'all' %>
+<%= stylesheet_link_tag 'projects_tree_view.css', :plugin => "projects_tree_view", :media => 'all' %>
+<%= javascript_include_tag 'projects_tree_view.js', :plugin => "projects_tree_view" %>
+
+<% content_for :header_tags do %>
+    <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
+<% end %>
+
+<div class="contextual">
+    <%= render_project_action_links %>
+</div>
+
+<div id="projects-index">
+
+</div>
+<span onclick="expandAll()"><span class="all expander">&nbsp;&nbsp;</span>expand all</span>
+<span onclick="closeAll()"><span class="all expander open">&nbsp;&nbsp;</span>close all</span>
+<%= render_projecttreeview(@projects) %>
+<%= render_project_useronline %>
+
+<% other_formats_links do |f| %>
+	<%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
+<% end %>
+
+<% html_title(l(:label_project_plural)) -%>

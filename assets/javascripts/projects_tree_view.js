@@ -1,14 +1,5 @@
 /* Function to allow the projects to show up as a tree */
 
-	Event.observe(window, 'load', function() {
-            if ($('expand_all')) {
-		$('expand_all').observe('click', function() {
-			$$('table.list tr').each(function(e) { e.addClassName('open'); e.removeClassName('hide'); });
-		});
-            }
-	});
-
-
 function showHide(EL,PM) 
 {
 	var els = document.getElementsByTagName('tr');
@@ -17,13 +8,10 @@ function showHide(EL,PM)
 	var cpattern = new RegExp("span");
 	var expand = new RegExp("open");
 	var collapse = new RegExp("closed");
-	var hide = new RegExp("hide");
 	var spanid = PM;
 	var classid = new RegExp("junk");
-	var oddeventoggle = 0;
 	for (i = 0; i < elsLen; i++)
 	{
-		
 		if(cpattern.test(els[i].id))
 		{
 			var tmpspanid = spanid;
@@ -45,48 +33,28 @@ function showHide(EL,PM)
 		if ( pattern.test(els[i].className) ) {
 
 		  var cnames = els[i].className;
-		  
 		  cnames = cnames.replace(/hide/g,'');
 		  
 		  if (expand.test(document.getElementById(PM).className))
 		  {
-				cnames += ' hide';			
+				cnames += ' hide';
+				
 		  }
 		  else
 		  {		
-				/* classid test function is buggy and matches incorrect ids 5 matches 50. */
 				if((spanid.toString() != PM.toString()) &&
 				  (classid.test(els[i].className)))
 				{
 					  if(collapse.test(document.getElementById(spanid).className))
 					  {
 						  cnames += ' hide';		 
-					  }					  
+					  }
 				}
 		  }
-		   	  
+		  
 		  els[i].className = cnames;
 		  
 		}
-		
-		if(!(hide.test(els[i].className)))
-		{
-			var cnames = els[i].className;	
-			cnames = cnames.replace(/odd/g,'');
-			cnames = cnames.replace(/even/g,'');
-		  		
-			if(oddeventoggle == 0)
-			{
-				cnames += ' odd';
-			}
-			else
-			{
-				cnames += ' even';
-			}
-			
-			oddeventoggle ^= 1;			
-			els[i].className = cnames;
-		}	
 	}
 	if (collapse.test(document.getElementById(PM).className))
 	{
@@ -102,3 +70,50 @@ function showHide(EL,PM)
 	}
 }
 
+function expandAll() 
+{
+	var els = document.getElementsByTagName('tr');
+	var elsLen = els.length;
+	for (i = 1; i < elsLen; i++)
+	{
+		  var cnames = els[i].className;
+		  var eleid = els[i].id;
+		  cnames = cnames.replace(/ hide/g,'');
+
+		  els[i].className  =cnames;
+		  
+		  cnames = cnames.replace(/closed/,'open');
+		  try {
+		  	document.getElementById(els[i].id).className = cnames;
+		  }
+		  catch(e){
+		  //	alert(cnames)
+		  }
+	}
+}
+
+function closeAll() 
+{
+	var els = document.getElementsByTagName('tr');
+	var elsLen = els.length;
+	var pattern = new RegExp(".*[0-9].*");
+	var cnames;
+
+	for (i = 1; i < elsLen; i++)
+	{
+		  cnames = els[i].className;
+
+		  if (pattern.test(cnames)) {
+		  	cnames = cnames.replace(/ hide/g,'');
+		  	cnames += ' hide';
+		  	els[i].className  =cnames;
+		  } else {
+		  }
+		  
+		  cnames = cnames.replace(/open/,'closed');
+		  try {
+		  document.getElementById(els[i].id).className = cnames;
+		  }
+		  catch(e){}
+	}
+}
